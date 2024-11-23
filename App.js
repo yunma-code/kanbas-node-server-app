@@ -17,7 +17,7 @@ app.use(express.json());
 // configure cors first, then server sessions
 app.use(cors({
 	credentials: true,
-	origin: process.env.NETLIFY_URL,
+	origin: process.env.NETLIFY_URL, //
 }));
 // default session config
 const sessionOptions = {
