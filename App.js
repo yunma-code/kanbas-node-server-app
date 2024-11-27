@@ -10,6 +10,7 @@ import session from "express-session";
 import ModuleRoutes from "./Kanbas/Modules/routes.js";
 import AssignmentRoutes from "./Kanbas/Assignment/routes.js";
 import EnrollmentRoutes from "./Kanbas/Enrollments/routes.js";
+import QuizzesRoutes from "./Kanbas/Quizzes/routes.js";
 
 const app = express();
 app.use(express.json());
@@ -17,11 +18,11 @@ app.use(express.json());
 // configure cors first, then server sessions
 app.use(cors({
 	credentials: true,
-	origin: process.env.NETLIFY_URL, //
+	origin: process.env.NETLIFY_URL,
 }));
 // default session config
 const sessionOptions = {
-	secret: process.env.SESSION_SECRET || "kanbas",
+	secret: process.env.SESSION_SECRET || undefined,
 	resave: false,
 	saveUninitialized: false,
 };
@@ -42,6 +43,7 @@ EnrollmentRoutes(app);
 CourseRoutes(app);
 ModuleRoutes(app);
 AssignmentRoutes(app);
+QuizzesRoutes(app);
 
 
 Lab5(app);
