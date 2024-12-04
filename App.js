@@ -1,5 +1,7 @@
 // const express = require("express"); //equivalent to import
+import "dotenv/config";
 import express from "express";
+import mongoose from "mongoose";
 import HelloRoutes from "./Hello.js";
 import Lab5 from "./Lab5/index.js";
 import cors from "cors";
@@ -11,6 +13,8 @@ import ModuleRoutes from "./Kanbas/Modules/routes.js";
 import AssignmentRoutes from "./Kanbas/Assignment/routes.js";
 import EnrollmentRoutes from "./Kanbas/Enrollments/routes.js";
 
+const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING || "mongodb://127.0.0.1:27017/Kanbas-cs5610-fa24"
+mongoose.connect(CONNECTION_STRING);
 const app = express();
 app.use(express.json());
 // support cookies and restrict cross origin source
