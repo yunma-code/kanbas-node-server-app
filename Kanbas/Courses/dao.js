@@ -1,7 +1,9 @@
-import Database from "../Database/index.js";
+// import Database from "../Database/index.js";
+import model from "./model.js";
 
 export function findAllCourses() {
-	return Database.courses;
+	// return Database.courses;
+  return model.find();
 };
 
 export function findCoursesForEnrolledUser(userId) {

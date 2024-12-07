@@ -1,5 +1,7 @@
 // const express = require("express"); //equivalent to import
+import "dotenv/config";
 import express from "express";
+import mongoose from "mongoose";
 import HelloRoutes from "./Hello.js";
 import Lab5 from "./Lab5/index.js";
 import cors from "cors";
@@ -11,13 +13,17 @@ import ModuleRoutes from "./Kanbas/Modules/routes.js";
 import AssignmentRoutes from "./Kanbas/Assignment/routes.js";
 import EnrollmentRoutes from "./Kanbas/Enrollments/routes.js";
 
+const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING || "mongodb://127.0.0.1:27017/Kanbas-cs5610-fa24"
+mongoose.connect(CONNECTION_STRING)
+	.then(() => console.log("Connected to MongoDB"))
+	.catch(err => console.error('Error connecting to MongoDB', err));
 const app = express();
 app.use(express.json());
 // support cookies and restrict cross origin source
 // configure cors first, then server sessions
 app.use(cors({
 	credentials: true,
-	origin: process.env.NETLIFY_URL, //
+	origin: process.env.NETLIFY_URL || "http://localhost:3000" //
 }));
 // default session config
 const sessionOptions = {
@@ -48,4 +54,6 @@ Lab5(app);
 HelloRoutes(app);
 
 // node.js port
-app.listen(process.env.PORT || 4000);
+app.listen(process.env.PORT || 4000, () => {
+  console.log(`Server running on port ${process.env.PORT || 4000}`);
+});
