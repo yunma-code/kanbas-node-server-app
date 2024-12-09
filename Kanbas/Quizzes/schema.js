@@ -22,7 +22,6 @@ const quizSchema = new mongoose.Schema(
 		lock_at: String,
 		description: String,
 		time_limit: Number,
-		published: Boolean,
 		questions: Array,
 		is_published: Boolean,
 		cid: { type: mongoose.Schema.Types.ObjectId, ref: "CourseModel" },
