@@ -1,3 +1,4 @@
+
 // import Database from "../Database/index.js";
 import model from "./model.js";
 
@@ -21,4 +22,5 @@ export function createQuiz(quiz) {
 
 export function findQuizzesForCourse(courseId) {
   return model.find({ course: courseId });
+
 }
