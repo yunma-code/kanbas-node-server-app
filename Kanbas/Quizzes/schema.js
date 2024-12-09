@@ -24,7 +24,7 @@ const quizSchema = new mongoose.Schema(
 		time_limit: Number,
 		published: Boolean,
 		questions: Array,
-		quiz: { type: mongoose.Schema.Types.ObjectId, ref: "CourseModel" },
+		cid: { type: mongoose.Schema.Types.ObjectId, ref: "CourseModel" },
 	},
 	{ collection: "quizzes" }
 );

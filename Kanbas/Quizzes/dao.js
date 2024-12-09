@@ -20,7 +20,7 @@ export function createQuiz(quiz) {
 	return model.create(quiz);
 }
 
-export function findQuizzesForCourse(courseId) {
-  return model.find({ course: courseId });
+export function findQuizzesForCourse(cid) {
+  return model.find({ cid: cid });
 
 }
