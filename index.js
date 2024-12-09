@@ -16,7 +16,7 @@ import EnrollmentRoutes from "./Kanbas/Enrollments/routes.js";
 // const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING || "mongodb://127.0.0.1:27017/Kanbas-cs5610-fa24"
 const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING
 mongoose.connect(CONNECTION_STRING)
-	.then(() => console.log("Connected to MongoDB"))
+	.then(() => console.log("Connected to MongoDB", CONNECTION_STRING))
 	.catch(err => console.error('Error connecting to MongoDB', err));
 const app = express();
 app.use(express.json());
