@@ -1,26 +1,26 @@
-import Database from "../Database/index.js";
 
-export function updateQuiz(quizId, quizUpdates) {
-  const { quizzes } = Database;
-  const quiz = quizzes.find((quiz) => quiz._id === quizId);
-  if (!quiz) throw new Error("Quiz not found");
-  Object.assign(quiz, quizUpdates);
-  return quiz;
+// import Database from "../Database/index.js";
+import model from "./model.js";
+
+export function createQuiz(quiz) {
+	delete quiz._id;
+	return model.create(quiz);
 }
 
-export function deleteQuiz(quizId) {
-  const { quizzes } = Database;
-  Database.quizzes = quizzes.filter((quiz) => quiz._id !== quizId);
+export function updateQuiz(qid, quizUpdates) {
+	return model.updateOne({ _id: qid }, { $set: quizUpdates });
+}
+
+export function deleteQuiz(qid) {
+  return model.deleteOne({ _id: qid });
 }
 
 export function createQuiz(quiz) {
-  const newQuiz = { ...quiz, _id: Date.now().toString() };
-  Database.quizzes = [...Database.quizzes, newQuiz];
-  return newQuiz;
+  delete quiz._id;
+	return model.create(quiz);
 }
 
 export function findQuizzesForCourse(courseId) {
-  const { quizzes } = Database;
-	console.log("All quizzes:", quizzes); 
-  return quizzes.filter((quiz) => quiz.course === courseId);
+  return model.find({ course: courseId });
+
 }

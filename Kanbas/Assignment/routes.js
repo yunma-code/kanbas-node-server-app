@@ -1,67 +1,41 @@
 import * as assignmentDao from "./dao.js";
 
 export default function AssignmentRoutes(app) {
-  app.get("/api/courses/:courseId/assignments", (req, res) => {
+  app.get("/api/courses/:courseId/assignments", async (req, res) => {
     const { courseId } = req.params;
-    try {
-      const assignments = assignmentDao.findAssignmentsForCourse(courseId);
-      if (!assignments || assignments.length === 0) {
-        return res.status(404).send("No assignments found for this course.");
-      }
-      res.json(assignments);
-    } catch (error) {
-      res.status(500).send(error.message);
-    }
+    const assignments = await assignmentDao.findAssignmentsForCourse(courseId);
+    res.json(assignments);
   });
 
-  app.get("/api/assignments/:assignmentId", (req, res) => {
+  app.get("/api/assignments/:assignmentId", async (req, res) => {
     const { assignmentId } = req.params;
-    try {
-      const assignment = assignmentDao.findAssignmentById(assignmentId);
-      if (!assignment) {
-        return res.status(404).send("Assignment not found.");
-      }
-      res.json(assignment);
-    } catch (error) {
-      res.status(500).send(error.message);
-    }
+    const assignment = await assignmentDao.findAssignmentById(assignmentId);
+    res.json(assignment);
   });
 
-  app.post("/api/assignments", (req, res) => {
+  app.post("/api/assignments", async (req, res) => {
     const assignment = req.body;
     try {
-      const newAssignment = assignmentDao.createAssignment(assignment);
+      const newAssignment = await assignmentDao.createAssignment(assignment);
       res.status(201).json(newAssignment);
     } catch (error) {
-      res.status(500).send(error.message);
+      console.error("Error creating assignment:", error);
+      res.status(500).send({ error: "Failed to create assignment" });
     }
   });
 
-  app.put("/api/assignments/:assignmentId", (req, res) => {
+  app.put("/api/assignments/:assignmentId", async (req, res) => {
     const { assignmentId } = req.params;
     const assignmentUpdate = req.body;
-    try {
-      const updatedAssignment = assignmentDao.updateAssignment(assignmentId, assignmentUpdate);
-      if (!updatedAssignment) {
-        return res.status(404).send("Assignment not found.");
-      }
-      res.json(updatedAssignment);
-    } catch (error) {
-      res.status(500).send(error.message);
-    }
+    const updatedAssignment = await assignmentDao.updateAssignment(assignmentId, assignmentUpdate);
+    res.json(updatedAssignment);
   });
 
 
-  app.delete("/api/assignments/:assignmentId", (req, res) => {
+  app.delete("/api/assignments/:assignmentId", async (req, res) => {
     const { assignmentId } = req.params;
-    try {
-      const status = assignmentDao.deleteAssignment(assignmentId);
-      if (!status) {
-        return res.status(404).send("Assignment not found.");
-      }
-      res.json({ success: true });
-    } catch (error) {
-      res.status(500).send(error.message);
-    }
+    const status = await assignmentDao.deleteAssignment(assignmentId);
+    res.json({ success: true });
+
   });
 }

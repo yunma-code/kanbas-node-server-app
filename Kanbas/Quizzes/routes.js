@@ -1,47 +1,43 @@
 import * as quizzesDao from "./dao.js";
+import * as coursesDao from "../Courses/dao.js";
+import * as enrollmentsDao from "../Enrollments/dao.js";
 
 export default function QuizRoutes(app) {
   app.put("/api/quizzes/:quizId", async (req, res) => {
-    const { quizId } = req.params;
-    const quizUpdates = req.body;
-    const updatedQuiz = await quizzesDao.updateQuiz(quizId, quizUpdates);
-    res.send(updatedQuiz);
+		const { quizId } = req.params;
+		const quizUpdates = req.body;
+		const updatedQuiz = await quizzesDao.updateQuiz(quizId, quizUpdates);
+		res.send(updatedQuiz);
   });
+
 
   app.delete("/api/quizzes/:quizId", async (req, res) => {
-    const { quizId } = req.params;
-    await quizzesDao.deleteQuiz(quizId);
-    res.send({ message: "Quiz deleted successfully" });
+		const { quizId } = req.params;
+		const status = await quizzesDao.deleteQuiz(quizId);
+		res.send(status);
   });
+
 
   app.post("/api/quizzes", async (req, res) => {
-    const newQuiz = req.body;
-    const createdQuiz = await quizzesDao.createQuiz(newQuiz);
-    res.status(201).send(createdQuiz);
+		const newQuiz = req.body;
+		const status = await quizzesDao.createQuiz(newQuiz);
+		res.send(status);
   });
 
+
   app.get("/api/courses/:courseId/quizzes", async (req, res) => {
-    const { courseId } = req.params;
-		console.log("received request for ", courseId);
-		try {
-			const quizzes = await quizzesDao.findQuizzesForCourse(courseId);
-			console.log("Quizz fetched from dao: ", quizzes);
-			res.json(quizzes);
-		}catch(error){
-			console.error("error fetching quiz");
-			res.status(500).send(error.message);
-		}
+		const { courseId } = req.params;
+		const course = await coursesDao.findCourseById(courseId);
+		const quizzes = await quizzesDao.findQuizzesForCourse(courseId);
+		res.json(quizzes);
+    
   });
-	app.get("/api/quizzes/:quizzId", (req, res) => {
-		const { quizzId } = req.params;
-    try {
-      const quizz = quizzesDao.findQuizzesForCourse(quizzId);
-      if (!quizz) {
-        return res.status(404).send("Quizzes not found.");
-      }
-      res.json(quizz);
-    } catch (error) {
-      res.status(500).send(error.message);
-    }
+
+
+  app.get("/api/quizzes/:quizId", async (req, res) => {   
+		const { quizId } = req.params;
+		const quiz = await quizzesDao.findQuizById(quizId);
+
+		res.json(quiz);
   });
 }
