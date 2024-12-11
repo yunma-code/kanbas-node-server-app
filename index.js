@@ -52,7 +52,6 @@ CourseRoutes(app);
 ModuleRoutes(app);
 AssignmentRoutes(app);
 QuizRoutes(app);
-
 Lab5(app);
 HelloRoutes(app);
 
