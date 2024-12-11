@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const quizSchema = new mongoose.Schema(
 	{
 		/* add quiz attributes */
+		id: String,
 		course: String,
 		title: String,
 		points_possible: Number,
