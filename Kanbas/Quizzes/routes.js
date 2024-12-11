@@ -7,6 +7,7 @@ export default function QuizRoutes(app) {
 		const { quizId } = req.params;
 		const quizUpdates = req.body;
 		const updatedQuiz = await quizzesDao.updateQuiz(quizId, quizUpdates);
+		console.log("updatedQuiz: ", updatedQuiz);
 		res.send(updatedQuiz);
   });
 

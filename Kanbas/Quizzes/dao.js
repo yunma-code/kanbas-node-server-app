@@ -8,11 +8,11 @@ export function createQuiz(quiz) {
 }
 
 export function updateQuiz(qid, quizUpdates) {
-	return model.updateOne({ _id: qid }, { $set: quizUpdates });
+	return model.updateOne({ id: qid }, { $set: quizUpdates });
 }
 
 export function deleteQuiz(qid) {
-  return model.deleteOne({ _id: qid });
+  return model.deleteOne({ id: qid });
 }
 
 export function findQuizzesForCourse(courseId) {
@@ -20,5 +20,5 @@ export function findQuizzesForCourse(courseId) {
 }
 
 export function findQuizById(qid) {
-	return model.find({ id : qid });
+	return model.findOne({ id : qid });
 }
