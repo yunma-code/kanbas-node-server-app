@@ -6,6 +6,7 @@ const courseSchema = new mongoose.Schema(
 		number: String,
 		credits: Number,
 		description: String,
+		img: { type: String, default: "images/aerodynamics.jpeg" },
 	},
 	{ collection: "courses" }
 );

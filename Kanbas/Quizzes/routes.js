@@ -21,6 +21,7 @@ export default function QuizRoutes(app) {
   app.post("/api/quizzes", async (req, res) => {
 		const newQuiz = req.body;
 		const status = await quizzesDao.createQuiz(newQuiz);
+		console.log("createQuiz status",status);
 		res.send(status);
   });
 
