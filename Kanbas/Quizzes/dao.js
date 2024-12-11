@@ -15,12 +15,10 @@ export function deleteQuiz(qid) {
   return model.deleteOne({ _id: qid });
 }
 
-export function createQuiz(quiz) {
-  delete quiz._id;
-	return model.create(quiz);
-}
-
 export function findQuizzesForCourse(cid) {
   return model.find({ cid: cid });
+}
 
+export function findQuizById(qid) {
+	return model.find({ id : qid });
 }
