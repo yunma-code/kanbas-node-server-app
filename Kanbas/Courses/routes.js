@@ -2,7 +2,9 @@ import * as dao from "./dao.js";
 import * as modulesDao from "../Modules/dao.js";
 import * as enrollmentsDao from "../Enrollments/dao.js";
 
+
 export default function CourseRoutes(app) {
+  
   const findUsersForCourse = async (req, res) => {
     const { cid } = req.params;
     const users = await enrollmentsDao.findUsersForCourse(cid);
@@ -18,6 +20,7 @@ export default function CourseRoutes(app) {
     }
     res.json(course);
   });
+
 	app.delete("/api/courses/:courseId", async (req, res) => {
 		const { courseId } = req.params;
 		const status = await dao.deleteCourse(courseId);
