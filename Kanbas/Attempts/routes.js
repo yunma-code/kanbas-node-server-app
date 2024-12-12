@@ -2,14 +2,16 @@ import * as attemptDao from "./dao.js";
 
 export default function AttemptRoutes(app) {
 
-	// create attempt 
-  app.post("/api/quizzes/attempt", async (req, res) => {
+	// create new attempt 
+  app.post("/api/quizzes/attempts", async (req, res) => {
     const newAttempt = req.body;
-		const status = await attemptDao.createAttempt(newAttempt);
+    const status = await attemptDao.createAttempt(newAttempt);
+    console.log("new attempt: ", newAttempt);
+    res.send(status);
   });
 
-	// update attempt 
-  app.put("/api/quizzes/attempt/:attemptId", async (req, res) => {
+	// update current attempt 
+  app.post("/api/quizzes/attempts/:attemptId", async (req, res) => {
     const { attemptId } = req.params;
     const attemptUpdates = req.body;
 		const updatedAttempt = await attemptDao.updateAttempt(attemptId, attemptUpdates);
@@ -27,6 +29,6 @@ export default function AttemptRoutes(app) {
     const { quizId } = req.params;
 		const attempts = await attemptDao.findAttemptByQuiz(quizId);
 		res.json(attempts);
-      
   });
+
 }

@@ -5,18 +5,14 @@ export function createAttempt(attempt) {
 	return model.create(attempt);
 }
 
-export function updateAttempt(attemptId, attemptUpdates) {
-	return model.updateOne(
-    { _id: attemptId }, 
-    { $set: {
-				current_attempt: attemptUpdates.current_attempt, 
-        score: attemptUpdates.score,
-				answers: attemptUpdates.answers,             
-      }
-    }
-  );
+export async function updateAttempt(attemptId, attemptUpdates) {
+	return await model.findByIdAndUpdate(
+		attemptId,
+		{ $set: attemptUpdates },
+		{ new: true }
+	);
 }
 
-export function findAttemptByQuiz(qid) {
-	return model.find({ id : qid });
+export async function findAttemptByQuiz(quizId) {
+	return await model.findOne({ quiz: quizId });
 }

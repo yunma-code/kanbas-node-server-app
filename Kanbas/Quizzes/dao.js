@@ -16,9 +16,11 @@ export function deleteQuiz(qid) {
 }
 
 export function findQuizzesForCourse(cid) {
-	return model.find({ course: cid });
+
+	console.log("fetched quiz")
+  return model.find({ course: cid });
 }
 
 export function findQuizById(qid) {
-	return model.findOne({ id: qid });
+	return model.findOne({ id : qid });
 }

@@ -2,11 +2,11 @@ import mongoose from "mongoose";
 
 const attemptsSchema = new mongoose.Schema(
 	{
-		current_attempt: Number,
+		current_attempt: { type: Number, default: 1 },
 		score: Number,
 		answers: Array, 
 		user: { type: mongoose.Schema.Types.ObjectId, ref: "UserModel" },
-		quiz: { type: mongoose.Schema.Types.ObjectId, ref: "QuizModel" },
+		quiz: String,
 		course: { type: mongoose.Schema.Types.ObjectId, ref: "CourseModel" },
 
 	},
