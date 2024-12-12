@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const attemptsSchema = new mongoose.Schema(
 	{
-		current_attempt: Number,
+		attempts_left: { type: Number, default: 0 },
 		score: Number,
 		answers: Array, 
 		user: { type: mongoose.Schema.Types.ObjectId, ref: "UserModel" },

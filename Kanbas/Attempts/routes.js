@@ -5,8 +5,10 @@ export default function AttemptRoutes(app) {
 	// create attempt 
   app.post("/api/quizzes/attempt", async (req, res) => {
     const newAttempt = req.body;
-		const status = await attemptDao.createAttempt(newAttempt);
+    const status = await attemptDao.createAttempt(newAttempt);
+    res.send(status);
   });
+  
 
 	// update attempt 
   app.put("/api/quizzes/attempt/:attemptId", async (req, res) => {
@@ -27,6 +29,5 @@ export default function AttemptRoutes(app) {
     const { quizId } = req.params;
 		const attempts = await attemptDao.findAttemptByQuiz(quizId);
 		res.json(attempts);
-      
   });
 }
