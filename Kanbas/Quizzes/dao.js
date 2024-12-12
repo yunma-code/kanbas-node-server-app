@@ -12,13 +12,13 @@ export function updateQuiz(qid, quizUpdates) {
 }
 
 export function deleteQuiz(qid) {
-  return model.deleteOne({ id: qid });
+	return model.deleteOne({ id: qid });
 }
 
 export function findQuizzesForCourse(cid) {
-  return model.find({ cid: cid });
+	return model.find({ course: cid });
 }
 
 export function findQuizById(qid) {
-	return model.findOne({ id : qid });
+	return model.findOne({ id: qid });
 }

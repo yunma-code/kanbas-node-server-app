@@ -128,6 +128,21 @@ export default function UserRoutes(app) {
   };
   app.put("/api/users/role", updateRole);
 
+
+  const updateDob = async (req, res) => {
+    const { dob } = req.params;
+    const dobUpdates = req.body;
+    await dao.updateDob(dob, dobUpdates);
+    const currentDob = req.session["currentDob"];
+    if(currentDob && currentDob.dob === dob) {
+      req.session["currentDob"] = { ...currentDob, ...dobUpdates };
+    }
+    res.json(currentDob);
+  };
+  app.put("/api/users/dob", updateDob);
+
+
+
   app.post("/api/users", createUser);
   app.get("/api/users", findAllUsers);
   app.put("/api/users/:userId", updateUser);
@@ -175,7 +190,6 @@ export default function UserRoutes(app) {
   };
   app.post("/api/users/:uid/courses/:cid", enrollUserInCourse);
   app.delete("/api/users/:uid/courses/:cid", unenrollUserFromCourse);
- 
   app.get("/api/users/:uid/courses", findCoursesForUser);
  
 }

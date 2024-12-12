@@ -23,3 +23,4 @@ export const findUsersByPartialName = (partialName) => {
 
 export const updateEmail = (userId, email) => model.updateOne({ _id: userId}, { email: email});
 export const updateRole = (userId, role) => model.updateOne({ _id: userId}, { role: role});
+export const updateDob = (userId, dob) => model.updateOne({ _id: userId}, { dob: dob});

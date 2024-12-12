@@ -36,3 +36,7 @@ export function updateCourse(courseId, courseUpdates) {
   // Object.assign(course, courseUpdates);
   // return course;
 };
+
+export function findCourseById(courseId) {
+  return model.findOne({ _id: courseId});
+};

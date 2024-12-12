@@ -45,14 +45,13 @@ if (process.env.NODE_ENV !== "development") {
 app.use(
 	session(sessionOptions)
 );
+
 UserRoutes(app);
 EnrollmentRoutes(app);
 CourseRoutes(app);
 ModuleRoutes(app);
 AssignmentRoutes(app);
 QuizRoutes(app);
-
-
 Lab5(app);
 HelloRoutes(app);
 
