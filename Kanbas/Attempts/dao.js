@@ -14,5 +14,8 @@ export async function updateAttempt(attemptId, attemptUpdates) {
 }
 
 export async function findAttemptByQuiz(quizId) {
+	if(typeof quizId !== "string") {
+		throw new Error("quizId must be a string");
+	}
 	return await model.findOne({ quiz: quizId });
 }
