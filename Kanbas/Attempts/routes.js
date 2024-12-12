@@ -10,12 +10,22 @@ export default function AttemptRoutes(app) {
     res.send(status);
   });
 
-	// update current attempt 
-  app.post("/api/quizzes/attempts/:attemptId", async (req, res) => {
-    const { attemptId } = req.params;
-    const attemptUpdates = req.body;
-		const updatedAttempt = await attemptDao.updateAttempt(attemptId, attemptUpdates);
-		res.send(updatedAttempt);
+	// update an existing attempt
+  app.put("/api/quizzes/attempts/:attemptId", async (req, res) => {
+    try {
+      const { attemptId } = req.params;
+      const attemptUpdates = req.body;
+
+      const updatedAttempt = await attemptDao.updateAttempt(attemptId, attemptUpdates);
+      if (!updatedAttempt) {
+        return res.status(404).json({ error: "Attempt not found" });
+      }
+
+      res.status(200).send(updatedAttempt); 
+    } catch (error) {
+      console.error("Error updating attempt:", error);
+      res.status(500).json({ error: "Failed to update attempt" });
+    }
   });
 
 
@@ -30,5 +40,6 @@ export default function AttemptRoutes(app) {
 		const attempts = await attemptDao.findAttemptByQuiz(quizId);
 		res.json(attempts);
   });
+
 
 }
