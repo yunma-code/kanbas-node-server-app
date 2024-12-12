@@ -14,5 +14,5 @@ export async function updateAttempt(attemptId, attemptUpdates) {
 }
 
 export async function findAttemptByQuiz(quizId) {
-	return await model.find({ quiz: quizId });
+	return await model.findOne({ quiz: quizId });
 }
