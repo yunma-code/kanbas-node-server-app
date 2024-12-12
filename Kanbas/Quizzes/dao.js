@@ -12,10 +12,11 @@ export function updateQuiz(qid, quizUpdates) {
 }
 
 export function deleteQuiz(qid) {
-  return model.deleteOne({ id: qid });
+	return model.deleteOne({ id: qid });
 }
 
 export function findQuizzesForCourse(cid) {
+
 	console.log("fetched quiz")
   return model.find({ course: cid });
 }
