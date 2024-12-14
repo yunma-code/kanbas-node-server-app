@@ -2,13 +2,13 @@ import mongoose from "mongoose";
 
 const attemptsSchema = new mongoose.Schema(
 	{
-		current_attempt: { type: Number, default: 1 },
-		score: Number,
-		answers: Array, 
 		user: { type: mongoose.Schema.Types.ObjectId, ref: "UserModel" },
-		quiz: String,
-		course: { type: mongoose.Schema.Types.ObjectId, ref: "CourseModel" },
-
+		// course: { type: mongoose.Schema.Types.ObjectId, ref: "CourseModel" },
+		quiz: String, // qid
+		attempt_count: { type: Number, default: 1 },
+		status: {type: String, default: "in-progress" },
+		score: Number,
+		answers: Array,
 	},
 	{ collection: "attempts" } 
 );

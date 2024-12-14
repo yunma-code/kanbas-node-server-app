@@ -51,6 +51,26 @@ export default function QuizRoutes(app) {
 	}
   });
   
+	//attempt routes here
+	
+	//function to check if user has remaining attempts
+	async function checkAttempts(req, res, next) {
+		const { quizId } = req.params;
+		const user = req.user.id;
+		const quiz = await quizzesDao.findQuizById(quizId);
+
+		if(!quiz) {
+			return res.status(404).send("Quiz is not found at checkAttempts");
+		}
+
+		const maxAttempt = quiz.attempts_number;
+		const attemptCount = await attemptsDao.getAttemptCount(userId, quizId);
+
+		if(attemptCount > maxAttempt){
+			return res.status(400).send("You used up all attempts for this quiz");
+		}
+		next();
+	}
   
 
 }

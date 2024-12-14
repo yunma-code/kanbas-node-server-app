@@ -53,7 +53,7 @@ CourseRoutes(app);
 ModuleRoutes(app);
 AssignmentRoutes(app);
 QuizRoutes(app);
-AttemptRoutes(app);
+// AttemptRoutes(app);
 Lab5(app);
 HelloRoutes(app);
 
