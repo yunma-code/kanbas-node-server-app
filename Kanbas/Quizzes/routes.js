@@ -1,4 +1,5 @@
 import * as quizzesDao from "./dao.js";
+import * as attemptsDao from "../Attempts/dao.js";
 
 export default function QuizRoutes(app) {
   app.put("/api/quizzes/:quizId", async (req, res) => {
@@ -56,7 +57,7 @@ export default function QuizRoutes(app) {
 	//function to check if user has remaining attempts
 	async function checkAttempts(req, res, next) {
 		const { quizId } = req.params;
-		const user = req.user.id;
+		const userId = req.user.id;
 		const quiz = await quizzesDao.findQuizById(quizId);
 
 		if(!quiz) {
@@ -71,6 +72,36 @@ export default function QuizRoutes(app) {
 		}
 		next();
 	}
-  
+
+	// routes to start an attempt in quiz
+	app.post('/api/quizzes/:quizId/attempts', async (req, res) => {
+		const { quizId } = req.params;
+		const userId = req.user.id;
+
+		try {
+			await attemptsDao.createAttempt(userId, quizId);
+		} catch (error) {
+			console.error("Error starting quiz attempt: ", error);
+			res.status(500).send("Error starting quiz attempt");
+		}
+	});
+
+	// routes to finish an attempt
+	app.patch('/api/quizzes/:quizId/attempts', async (req, res) => {
+		const { quizId } = req.params;
+		const userId = req.user.id;
+		const { status } = req.body;
+
+		try {
+			await attemptsDao.updateAttempt(userId, quizId, status);
+		} catch (error) {
+			console.error("error updating quiz attempt status: ", error);
+			res.status(500).send("error updating quiz attempt status");
+
+		}
+	});
+
 
 }
+  
+
